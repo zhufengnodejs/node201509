@@ -23,8 +23,18 @@ Person.prototype.emit = function(eventName){
         callback.apply(self,args);
     });
 }
-Person.prototype.once = function(){
+Person.prototype.removeListener = function(eventName,callback){
+    this._events[eventName] = this._events[eventName].filter(function(cb){
+      return cb != callback;
+  });
+}
+Person.prototype.once = function(eventName,callback) {
 
+  function onceCallback(){
+     callback.apply(this,arguments);
+     this.removeListener(eventName,onceCallback);
+  }
+  this.on(eventName,onceCallback);
 }
 var girl = new Person();
 girl.on('长发及腰',function(){
@@ -35,6 +45,16 @@ girl.on('长发及腰',function(){
 });
 
 girl.emit('长发及腰');
+
+girl.once('18',function(style){
+    console.log(style,'嫁张三');
+});
+girl.once('18',function(style){
+    console.log(style,'嫁李四');
+});
+girl.emit('18','快乐');
+girl.emit('18','不情愿的');
+girl.emit('18','拒绝的');
 
 
 
