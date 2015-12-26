@@ -23,6 +23,9 @@ Person.prototype.emit = function(eventName){
         callback.apply(self,args);
     });
 }
+Person.prototype.once = function(){
+
+}
 var girl = new Person();
 girl.on('长发及腰',function(){
     console.log('我要娶你可好');
