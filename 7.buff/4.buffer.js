@@ -66,6 +66,38 @@ var buf1 = new Buffer([1,2,3]);
 var buf2 = new Buffer([4,5,6]);
 var buf = concat([buf1,buf2],6);
 console.log(buf);
-function concat(list,length){
-    return result;
+function concat2(arrBuffers, length){
+    var buffer = new Buffer(length);
+    var curIndex = 0;
+    arrBuffers.forEach(function(buf){
+        buf.forEach(function(b){
+            buffer[curIndex++] = b;
+        });
+    });
+    return buffer.slice(0,curIndex);
 }
+
+function concat(arrBuffers, length){
+    if(arrBuffers.length==1)
+       return arrBuffers[0];
+    if(length == undefined){
+        length = 0;
+        arrBuffers.forEach(function(buf){
+            length +=buf.length;
+        });
+    }
+
+    var buffer = new Buffer(length);
+    var curIndex = 0;
+    arrBuffers.forEach(function(buf){
+        buf.copy(buffer,curIndex);
+        curIndex+=buf.length;
+    });
+    return buffer.slice(0,curIndex);
+}
+
+var buffer1 = new Buffer("张三");
+var buffer2 = new Buffer("吃饭");
+
+var buffer3 = concat([buffer1, buffer2], 100);
+console.log(buffer3.toString());
