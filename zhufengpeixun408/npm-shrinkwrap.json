@@ -1,0 +1,44 @@
+{
+  "name": "zhufengpeixun408",
+  "version": "1.0.0",
+  "dependencies": {
+    "async": {
+      "version": "1.5.0",
+      "from": "async@latest"
+    },
+    "bignumber.js": {
+      "version": "2.1.2",
+      "from": "bignumber.js@2.1.2",
+      "resolved": "https://registry.npmjs.org/bignumber.js/-/bignumber.js-2.1.2.tgz"
+    },
+    "core-util-is": {
+      "version": "1.0.2",
+      "from": "core-util-is@>=1.0.0 <1.1.0",
+      "resolved": "http://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz"
+    },
+    "inherits": {
+      "version": "2.0.1",
+      "from": "inherits@>=2.0.1 <2.1.0"
+    },
+    "isarray": {
+      "version": "0.0.1",
+      "from": "isarray@0.0.1",
+      "resolved": "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz"
+    },
+    "mysql": {
+      "version": "2.10.0",
+      "from": "mysql@latest",
+      "resolved": "https://registry.npmjs.org/mysql/-/mysql-2.10.0.tgz"
+    },
+    "readable-stream": {
+      "version": "1.1.13",
+      "from": "readable-stream@>=1.1.13 <1.2.0",
+      "resolved": "http://registry.npmjs.org/readable-stream/-/readable-stream-1.1.13.tgz"
+    },
+    "string_decoder": {
+      "version": "0.10.31",
+      "from": "string_decoder@>=0.10.0 <0.11.0",
+      "resolved": "http://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz"
+    }
+  }
+}
