@@ -8,7 +8,7 @@ function copy(src, target) {
                 var buffer = new Buffer(3);
                 fs.read(fd, buffer, 0, 3, pos, function (err, bytesRead) {
                     if (bytesRead > 0){
-                        fs.write(fdw, buffer.slice(0, bytesRead), 0, 3, pos, function (errww, bytesWritten) {
+                        fs.write(fdw, buffer.slice(0, bytesRead), 0, bytesRead, pos, function (errww, bytesWritten) {
                             console.log('bytesWritten',bytesWritten);
                             pos += bytesRead;
                             read();

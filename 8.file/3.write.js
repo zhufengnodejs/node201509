@@ -14,7 +14,7 @@ var fs = require('fs');
  * r--  其它人
  *
  */
-fs.writeFile('line.txt','第一行',{flag:'w',encoding:'utf8'},function(err){
+fs.writeFileSync('line.txt','第一行',{flag:'w',encoding:'utf8'},function(err){
   console.log(err);
 })
 
