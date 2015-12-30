@@ -31,7 +31,6 @@ function handleBinary(bStr){
             break;
         case 4:
             bStr+="00";
-
     }
     for(var i= 0,sLen=bStr.length;i<sLen;i=i+6){
         var num=parseInt(bStr.substr(i,6),"2");
