@@ -21,7 +21,7 @@ function parseHeader(callback){
             var buf = new Buffer(left);
             if(buf.length)
               rs.unshift(buf);
-            callback(headers);
+            return callback(headers);
         }else{
             headers+=str;
         }
