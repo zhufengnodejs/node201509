@@ -7,4 +7,7 @@ socket.on('message',function(msg,rinfo){
 socket.send(new Buffer('珠峰培训'),0,6,41234,'localhost',function(err,bytes){
     console.log('发送了个%d字节',bytes);
 });
+socket.on('error',function(err){
+    console.error(err);
+});
 
