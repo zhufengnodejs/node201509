@@ -1,16 +1,11 @@
-var EventEmitter = new require('events');
-function Person(){
-
+var stack = [function(req,res,next){
+    console.log('1');
+    next();
+},function(req,res,next){
+    console.log('2');
+}]
+var index = 0;
+function next(){
+    stack[index++]('req','res',next);
 }
-require('util').inherits(Person,EventEmitter);
-var  p = new Person();
-p.on('newListener',function(eventName,fn){
-    console.log(eventName);
-    fn()
-});
-p.on('xx',function(){
-console.log('x');
-});
-p.on('yy',function(){
-
-});
+next();
