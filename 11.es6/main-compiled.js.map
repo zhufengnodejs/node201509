@@ -1,1 +1,0 @@
-{"version":3,"sources":["main.js"],"names":[],"mappings":"AAAA,YAAY,CAAA;;AAEZ,IAAI,CAAC,GAAG,MAAM,CAAC;AACf,IAAI,CAAC,GAAG,CAAC,CAAC;AACV,IAAI,CAAC,GAAG,CAAC,CAAC;AACV,OAAO,CAAC,GAAG,CAAC,CAAC,EAAC,CAAC,CAAC,CAAC","file":"main-compiled.js","sourcesContent":["'use strict'\r\n\r\nlet a = 'zfpx';\r\nlet b = 6;\r\nlet c = 6;\r\nconsole.log(a,b);"]}
