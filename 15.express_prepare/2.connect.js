@@ -38,7 +38,7 @@ proto.handle = function(req,res){
                   next(err);
               }
           }else{
-              handle(err,req,res,next);
+              handle(req,res,next);
           }
 
       }else{
