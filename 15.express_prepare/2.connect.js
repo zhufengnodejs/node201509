@@ -24,14 +24,23 @@ proto.use = function(route,fn){
 proto.handle = function(req,res){
   var stack = this.stack;
   var index = 0;
-  function next(){
+  function next(err){
       var layer = stack[index++];
       var route = layer.path;
       var handle = layer.handle;
 
       var path = url.parse(req.url).pathname;
       if(path.startsWith(route)){
-          handle(req,res,next);
+          if(err){
+              if(handle.length==4){
+                  handle(err,req,res,next);
+              }else{
+                  next(err);
+              }
+          }else{
+              handle(err,req,res,next);
+          }
+
       }else{
           next();
       }
