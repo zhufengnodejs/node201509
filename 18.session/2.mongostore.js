@@ -8,7 +8,7 @@ app.use(session({
         maxAge:60*100
     },
     saveUninitialized:true,
-    store:new FileStore()
+    store:new FileStore({dir:'./sessions'})
 }));
 app.get('/save',function(req,res){
     req.session.name = 'zfpx';
