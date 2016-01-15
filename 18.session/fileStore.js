@@ -14,9 +14,10 @@ module.exports = function (session) {
 
     FileStore.prototype.__proto__ = Store.prototype;
     FileStore.prototype.get = function (sid, callback) {
+        var self = this;
         fs.exists(path.join(this._dir,sid),function(exists){
             if(exists){
-                fs.readFile(path.join(this._dir,sid),{encoding:'utf8'},function(err,data){
+                fs.readFile(path.join(self._dir,sid),{encoding:'utf8'},function(err,data){
                     callback(null,JSON.parse(data));
                 })
             }else{
