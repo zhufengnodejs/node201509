@@ -14,7 +14,7 @@ app.use('/img',function(req,res,next){
     if(!referrer)
        return next();
     var referHost = require('url').parse(referrer).host.split(':')[0];
-    if(referHost === req.host){
+    if(referHost === req.host ||  whitelist.indexOf(referHost)!=-1){
         return next();
     }
     res.sendFile(path.join(__dirname,'img','wrong.jpg'));
