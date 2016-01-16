@@ -11,18 +11,15 @@ function getHash(str){
  * 1.
  */
 function send(filename,req,res){
-    //取得最后修改时间
-    var ifNoneMatch =req.headers['if-none-match'];
-    var data=fs.readFileSync(filename).toString()
-    if(ifNoneMatch == getHash(data)){
-        res.statusCode = 304;
-        res.end();
-    }else{
-        res.writeHead(200,{'Etag':getHash(data)});
-        fs.createReadStream(filename).pipe(res);
-    }
+    fs.readFile(filename,function(err,data){
+        var expires = new Date(Date.now()+ 10*1000);
+        res.setHeader('Expires',expires.toUTCString);//设置过期时间
+        res.setHeader('Cache-Control','max-age=10');
+        res.end(data);
+    });
 }
 http.createServer(function(req,res){
+    console.log(req.url);
     if(req.url != '/favicon.ico'){
         var filename = req.url.slice(1);// /index.html
         send(filename,req,res);
