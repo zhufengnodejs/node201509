@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap.css">
+</head>
+<body class="container">
+<alert title="这是指令的标题">
+    这是指令内部的内容
+</alert>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod',[])
+            .directive('alert',function(){
+                return {
+                   transclude:true,
+                   replace:true,
+                   restrict:'E',
+                   template:'<div class="panel panel-default"><div class="panel-heading"></div> <div class="panel-body" ng-transclude></div> </div>'
+                }
+            });
+
+</script>
+</html>

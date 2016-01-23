@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="zfCtrl">
+{{zhangsan}}<br/>
+{{lisi}}
+<person namex="zhangsan" greet="greet(name,word,num)"></person>
+<person namex="lisi"></person>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod',[])
+            .controller('zfCtrl',function($scope){
+                $scope.zhangsan = '张三';
+                $scope.lisi = '李四';
+                $scope.count = 0;
+                $scope.greet = function(name,word,num){
+                    console.log($scope.count,num);
+                    $scope.count+=num;
+                    console.log($scope.count);
+                    alert(name+' '+word);
+                }
+            })
+            .directive('person',function(){
+                return {
+                    replace:true,
+                    scope:{
+                        namey:'=namex',
+                        greet:'&greet'
+                    },//为true的话创建独立 scope
+                    restrict:'E',
+                    template:'<div>姓名:{{namey}} <input ng-model="word"> <div ng-click="greet({name:namey,word:word,num:5})">click</div></div>'
+                }
+            });
+
+</script>
+</html>

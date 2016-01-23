@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<span zf-hello>world</span>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod',[])
+            .directive('zfHello',function(){
+                return {
+                   transclude:true,
+                   replace:true,
+                   template:'<h1>hello<span ng-transclude></span></h1>'
+                }
+            });
+
+</script>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<span zf-hoverable>我是span</span>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod',[])
+            .directive('zfHoverable',function(){
+                return {
+                    link:function(scope,element,attrs){
+                        element.on('mouseover',function(){
+                            element.css({outline:'#ff0000 dotted thick'});
+                        }).on('mouseout',function(){
+                            element.css({outline:'none'});
+                        });
+                    }
+                }
+            });
+
+</script>
+</html>

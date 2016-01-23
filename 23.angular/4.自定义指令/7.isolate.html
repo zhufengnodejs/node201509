@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<hello></hello>
+<hello></hello>
+<hello></hello>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod',[])
+            .directive('hello',function(){
+                return {
+                    replace:true,
+                    scope:true,//为true的话创建独立 scope
+                    restrict:'E',
+                    template:'<input ng-model="name">'
+                }
+            });
+
+</script>
+</html>

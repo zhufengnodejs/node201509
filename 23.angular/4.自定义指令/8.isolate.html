@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="zfCtrl">
+<person namex="{{zhangsan}}"></person>
+<person namex="{{lisi}}"></person>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod',[])
+            .controller('zfCtrl',function($scope){
+                $scope.zhangsan = '张三';
+                $scope.lisi = '李四';
+                $scope.greet = function(name,word){
+                    alert(name+' '+word);
+                }
+            })
+            .directive('person',function(){
+                return {
+                    replace:true,
+                    scope:{
+                        namey:'@namex'
+                    },//为true的话创建独立 scope
+                    restrict:'E',
+                    template:'<div>姓名:{{namey}}</div>'
+                }
+            });
+
+</script>
+</html>

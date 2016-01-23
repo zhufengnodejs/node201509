@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<hello></hello> E
+<div hello></div> A
+<div class="hello"></div> C
+<!-- directive:hello --> M
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod',[])
+            .directive('hello',function(){
+                return {
+                    replace:true,
+                   restrict:'E',
+                   template:'<h1>hello</h1>'
+                }
+            });
+
+</script>
+</html>
