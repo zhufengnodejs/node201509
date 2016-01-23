@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="zfpxCtrl">
+<div ng-app="zfpxMod" ng-init="click=false">
+    <button ng-click="click= !click">隐藏/显示</button>
+    <div ng-hide="click">
+        请输入一个名字：<input type="text" ng-model="name">
+        Hello <span ng-bind="name"></span>
+    </div>
+</div>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod',[])
+            .controller('zfpxCtrl',function($scope,$interval){
+
+            });
+
+</script>
+</html>

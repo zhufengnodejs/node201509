@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfMod">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body>
+<div ng-controller="ParentCtrl">
+    parent:{{count}}
+    <div ng-controller="ChildCtrl">
+        {{$emit}}
+      <input type="text" ng-model="num">
+      <input type="button" ng-click="$emit('add',num)" value="向上发射">
+      <input type="button" ng-click="$broadcast('add',num)" value="向下发射">
+      child:{{count}}
+        <div ng-controller="GrandCtrl">
+            grandson:{{count}}
+        </div>
+    </div>
+</div>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfMod', [])
+    .controller('ParentCtrl',function($scope,$interval){
+        $scope.count = 0;
+        $scope.$on('add',function(eve,num){
+            $scope.count+=num;
+        });
+    })
+            .controller('ChildCtrl',function($scope,$interval){
+                $scope.count = 0;
+               /* $scope.$on('add',function(eve){
+                    $scope.count++;
+                });*/
+            })
+            .controller('GrandCtrl',function($scope,$interval){
+                $scope.count = 0;
+                $scope.$on('add',function(eve,num){
+                    $scope.count+=num;
+                });
+            })
+</script>
+</html>

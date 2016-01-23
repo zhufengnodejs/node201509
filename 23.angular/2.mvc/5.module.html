@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfMod1">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body>
+<div ng-controller="Ctrl1">
+{{name}}
+</div>
+<div ng-controller="Ctrl1">
+    {{name}}
+</div>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfMod1', ['zfMod2'])
+            .controller('Ctrl1',function($scope){
+                $scope.name='ctrl1';
+            });
+
+</script>
+<script src="mod2.js"></script>
+</html>

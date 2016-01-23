@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-init="word='zfpx'">
+<div times="4">
+    <p>hello {{word}}</p>
+</div>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod',[])
+            .directive('times',function(){
+                return {
+                   compile:function(element,attrs){
+                     //console.log(element[0].outerHTML);
+                       var tpl = element.children();
+                       for(var i=0;i<attrs.times-1;i++){
+                         element.append(tpl.clone());
+                       }
+                       // link
+                       return function(scope,element,attrs){
+                            scope.word = 'newzfpx';
+                           console.log('compile部的link');
+                       }
+                   },
+                    link:function(scope,element,attrs){
+                        console.log('外部的link');
+                        scope.word = 'newzfpx';
+                    }
+                }
+            });
+
+</script>
+</html>

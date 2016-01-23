@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../bootstrap.css">
+    <title>Title</title>
+</head>
+<body ng-controller="zfpxCtrl">
+<div class="container-fluid" ng-init="phones=[{name:'iphone'},{name:'xiaomi'}]">
+    <div class="row-fluid">
+        Search: <input ng-model="xxx">
+        <ul class="phones">
+            <li ng-repeat="phone in phones | filter:xxx">
+                {{phone.name}}
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod',[])
+            .controller('zfpxCtrl',function($scope,$interval){
+
+            });
+
+</script>
+</html>

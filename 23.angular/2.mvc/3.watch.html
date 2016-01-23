@@ -16,7 +16,7 @@
     .controller('WatchCtrl',function($scope,$interval){
         $scope.age = 100;
         $interval(function(){
-                $scope.age = $scope.age+1;
+                $scope.age = parseInt($scope.age)+1;
         },1000);
 
         console.log($scope);

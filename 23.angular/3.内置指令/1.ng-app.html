@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="zfpxCtrl">
+<div  ng-init="name='zfpx'">
+    {{name}}
+    <span ng-bind="name"></span>
+</div>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod',[])
+            .controller('zfpxCtrl',function($scope,$interval){
+                $scope.name = 'feng';
+                $interval(function(){
+                      console.log($scope.name);
+                  },2000);
+            });
+
+</script>
+</html>

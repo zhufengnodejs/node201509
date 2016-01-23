@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../bootstrap.css">
+    <title>Title</title>
+</head>
+<body ng-controller="zfpxCtrl">
+<div class="container-fluid">
+   <div class="form-group" ng-class="{'has-error':username.length<=6,'has-success':username.length>6}">
+       <input class="form-control" type="text" ng-model="username">
+   </div>
+</div>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod',[])
+            .controller('zfpxCtrl',function($scope,$interval){
+
+            });
+
+</script>
+</html>
