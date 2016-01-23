@@ -8,7 +8,7 @@
 <div red>
 hello
 </div>
-<span red>world</span>
+<span greeting>world</span>
 </body>
 <script src="../angular.js"></script>
 <script>
@@ -21,9 +21,23 @@ hello
                     //scope作用域 当前元素本身
                     link:function(scope,element){
                        element.css('color','red');
-                        element.css('border','1px solid solid');
+                        element.css('border','1px solid red');
                         element.on('click',function(){
                             alert(element.html());
+                        });
+                    }
+                }
+            })
+            .directive('greeting',function($http){
+                return {
+                    //scope作用域 当前元素本身
+                    link:function(scope,element){
+                        // $.ajax
+                        $http({
+                            url:'greeting.json',
+                            method:'GET'
+                        }).success(function(data){
+                            element.html(data.data);
                         });
                     }
                 }

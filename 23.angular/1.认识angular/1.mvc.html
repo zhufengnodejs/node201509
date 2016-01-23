@@ -6,8 +6,7 @@
 </head>
 <body>
 <div ng-controller="zfCtrl">
-{{name}}
-{{age +1 }}
+    {{name}}
 </div>
 </body>
 <script src="../angular.js"></script>
@@ -16,10 +15,14 @@
     //模块的名字 依赖的其它模块
     angular.module('zfMod',[])
             //控制器的名字 控制器的定义
-            .controller('zfCtrl',function($scope){
-               console.log($scope);//{}
-                $scope.name ='zfpx';
-                $scope.age =6;
+            .controller('zfCtrl',function($scope,$http){
+                $http({
+                    url:'greeting.json',
+                    method:'GET'
+                }).success(function(data){
+                    console.log(data);
+                    $scope.name = data.word;
+                });
             })
 
 </script>
