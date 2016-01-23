@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap.css">
+    <style>
+        body {
+            padding: 70px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron text-center">
+        <girl beautiful gender></girl>
+        {{desc}}
+    </div>
+</div>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod', [])
+            .directive('girl', function () {
+                return {
+                    restrict: 'E',
+                    scope:true,
+                    controller:function($scope,$element,$attrs){
+                        var desc = $scope.desc =  {};
+                        this.add = function(char){
+                            desc[char] =char;
+                        }
+                    },
+                    template: '<h1>angular {{desc}}</h1>'
+                }
+            }).directive('beautiful', function () {
+                return {
+                    restrict: 'A',
+                    require:'girl',
+                    link:function(scope,element,attrs,girlCtrl){
+                        girlCtrl.add('beautiful');
+                    }
+                }
+            }).directive('gender', function () {
+                return {
+                    restrict: 'A',
+                    require:'girl',
+                    link:function(scope,element,attrs,girlCtrl){
+                        girlCtrl.add('gender');
+                    }
+                }
+            });
+
+</script>
+</html>

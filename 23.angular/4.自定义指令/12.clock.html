@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="zfCtrl">
+时间的格式: <input type="text" ng-model="format"><br/>
+当前时间: <span zf-current-time="format"></span>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod',[])
+            .controller('zfCtrl',function($scope,dateFilter){
+                $scope.format = 'M/d/yy h:mm:ss a';
+            })
+            .directive('zfCurrentTime',function($interval,dateFilter){
+                return {
+                  link:function(scope,element,attrs){
+                    function upateTime(){
+                        element.text(dateFilter(new Date(),scope.format));
+                    }
+                    $interval(function(){
+                        upateTime();
+                    },1000);
+                  }
+                }
+            });
+
+</script>
+</html>
