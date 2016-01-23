@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfMod">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body ng-controller="parentCtrl">
+<input type="button" value="输出" ng-click="change()">
+<div ng-controller="zfCtrl">
+    {{name | uppercase}}
+    {{$parent.age}}
+    <input type="text" ng-model="name">
+    <input type="button" value="改变" ng-click="change()">
+</div>
+
+</body>
+<script src="../angular.js"></script>
+<script>
+    ///找到ng-app之后，会生成一个$rootScope
+    //$rootScope.name= ""
+    angular.module('zfMod', [])
+            .controller('zfCtrl', function ($scope) {
+                //console.log($scope);
+                $scope.age = 100;
+                $scope.change = function () {
+                    $scope.name = 'zfpx';
+                }
+            }).controller('parentCtrl', function ($scope) {
+                  $scope.age = 6;
+        $scope.change = function () {
+            console.log($scope.$$ChildScope);
+        }
+
+    });
+
+</script>
+</html>
