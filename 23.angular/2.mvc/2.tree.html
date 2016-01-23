@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfMod">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body>
+<div id="parent" ng-controller="ParentCtrl">
+    <p>Parent:{{parent}}</p>
+    <div ng-controller="ChildCtrl">
+        <p>Child:{{child}}</p>
+    </div>
+</div>
+
+</body>
+<script src="../angular.js"></script>
+<script>
+
+   window.onload = function(){
+       //angular.element == $
+       document.getElementById('parent').addEventListener('click',function(){
+           console.log(this);
+           var scope = angular.element(this).data('$scope');
+           scope.count = scope.count +1;
+           console.log(angular.element(this).data('$scope'));
+       });
+   }
+
+    ///找到ng-app之后，会生成一个$rootScope
+    //$rootScope.name= ""
+    angular.module('zfMod', [])
+            .controller('ParentCtrl',function($scope,$interval){
+                $scope.parent = 'parent';
+                $scope.show = function(){
+                    console.log($scope);
+                }
+                $scope.count=0;
+                $interval(function(){
+                    console.log($scope.count);
+                },1000);
+            }).controller('ChildCtrl',function($scope){
+                $scope.child = 'child';
+                $scope.show = function(){
+                    console.log($scope);
+                }
+            });
+
+</script>
+</html>

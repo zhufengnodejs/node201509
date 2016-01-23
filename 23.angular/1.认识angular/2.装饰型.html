@@ -8,7 +8,7 @@
 <div red>
 hello
 </div>
-<span greeting>world</span>
+<span zf-greeting>world</span>
 </body>
 <script src="../angular.js"></script>
 <script>
@@ -28,7 +28,7 @@ hello
                     }
                 }
             })
-            .directive('greeting',function($http){
+            .directive('zfGreeting',function($http){
                 return {
                     //scope作用域 当前元素本身
                     link:function(scope,element){

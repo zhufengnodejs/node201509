@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfMod">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body>
+
+<div ng-controller="Ctrl1">
+    {{count}}
+    <input type="button" value="加1" ng-click="add()">
+</div>
+<div ng-controller="Ctrl2">
+    {{count}}
+    <input type="button" value="加1" ng-click="add()">
+</div>
+
+</body>
+<script src="../angular.js"></script>
+<script>
+    ///找到ng-app之后，会生成一个$rootScope
+    //$rootScope.name= ""
+    angular.module('zfMod', [])
+            .controller('Ctrl1', function ($scope,countService) {
+                $scope.add = function () {
+                    countService.add();
+                    $scope.count = countService.count;
+                }
+            }).controller('Ctrl2', function ($scope,countService) {
+        $scope.add = function () {
+            countService.add();
+            $scope.count = countService.count;
+        }
+    }).factory('countService',function(){
+        return {
+            count:0,
+            add: function () {
+                this.count++;
+            }
+        }
+    });
+
+</script>
+</html>

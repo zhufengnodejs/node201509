@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfMod">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body>
+<div ng-controller="WatchCtrl">
+    <input id="age" type="text" zf-model="age">
+    {{age}}
+</div>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfMod', [])
+    .controller('WatchCtrl',function($scope,$interval){
+        $scope.age = 100;
+        $interval(function(){
+                $scope.age = $scope.age+1;
+        },1000);
+
+        console.log($scope);
+    }).directive('zfModel',function($timeout){
+        return {
+            link:function(scope,element,attrs){
+                element.on('keypress',function(){
+                    console.log('keypress',element.val());
+                    //强制观察者去对比模型是否改动
+                    scope.$apply(function(){
+                        scope.age = element.val();
+                    });
+                    /*$timeout(function(){
+                        scope.age = element.val();
+                    },0);*/
+
+                });
+                //模型变化时执行回调，修改视图的值
+                var watcher = scope.$watch('age',function(newVal,oldVal){
+                    console.log(newVal,oldVal);
+                    if(newVal != oldVal){
+                        element.val(scope.age);
+                    }
+                })
+                console.log('scope',scope);
+            }
+        }
+    })
+</script>
+</html>
