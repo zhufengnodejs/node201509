@@ -68,7 +68,7 @@
                  link:function(scope,element,attrs,ngModelCtrl){
                      var timer;
                      scope.$watch(attrs.ngModel,function(newValue,oldValue){
-                             $http.jsonp('http://localhost:8080/check?callback=JSON_CALLBACK&username='+newValue+'&_='+Math.random())
+                             $http.jsonp('http://localhost:8080/check?callback=JSON_CALLBACK&username='+newValue)
                                      .success(function(result){
                                          console.log(result);
                                         ngModelCtrl.$setValidity('unique',result.unique);

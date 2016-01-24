@@ -6,8 +6,9 @@ app.use(function(req,res,next){
 });
 app.all('/check',function(req,res){
   var data = req.query;
-    console.log(data);
+
     var callback = data.callback;
+    console.log(callback);
     if(data.username == 'admin'){
         res.send(callback+'({"unique":false})');
     }else{

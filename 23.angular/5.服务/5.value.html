@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfMod">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-controller="zfCtrl">
+    <input type="text" ng-model="a">
+    <select ng-model="op">
+        <options>
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </options>
+    </select>
+    <input type="text" ng-model="b">
+    <button type="button" ng-click="cal()">=</button>
+    {{result}}
+</div>
+</body>
+<script src="../angular.js"></script>
+<script>
+
+    //模块的名字 依赖的其它模块
+    angular.module('zfMod',[])
+            //控制器的名字 控制器的定义
+            .controller('zfCtrl',function($scope,$http,zfCalculator){
+                  $scope.cal = function(){
+                      $scope.result = zfCalculator[$scope.op]($scope.a,$scope.b);
+                  }
+            })
+    angular.module('zfMod').value('zfCalculator',{
+        '+' : function(a,b){return a+b;},
+        '-' :  function(a,b){return a-b;},
+        '*' :  function(a,b){return a*b;},
+        '/' :  function(a,b){return a/b;},
+    });
+
+
+    //1. 注册 2.配置 3.注入
+
+</script>
+</html>

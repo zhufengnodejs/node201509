@@ -49,14 +49,14 @@
                      element.after(message);
                    }
                }
-            }).filter('errors',function(){
+            }).filter('errors',function(messages){
                 return function(input){
-                    var messages = {
-                        'require':'必填',
-                        'email':'必须是邮箱'
-                    }
                     return messages[input];
                 }
+    }).contant('messages',{
+        'require':'必填',
+        'email':'必须是邮箱',
+        'unique':'必须唯一'
     });
 </script>
 </html>

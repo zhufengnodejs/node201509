@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfMod">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div ng-controller="zfCtrl">
+    <ul>
+        <li ng-repeat="book in books">{{book.name}}</li>
+    </ul>
+    <button ng-click="log()">点击</button>
+</div>
+</body>
+<script src="../angular.js"></script>
+<script>
+    //模块的名字 依赖的其它模块
+    angular.module('zfMod', []);
+
+    angular.module('zfMod').controller('zfCtrl', function ($http, $scope, $log) {
+        $http.get('books.json').then(function(result){
+            $scope.books = result;
+        });
+    });
+
+
+
+    angular.module('zfMod').factory('bookInterceptor', function ($log,$q) {
+        return {
+            request: function (config) {
+                $log.log('request',config);
+                var defer = $q.defer();
+                setTimeout(function(){
+                    config.url = 'http://localhost:8080';
+                    defer.resolve(config);
+                },1000);
+                return defer.promise;
+            },
+            response: function (response) {
+                $log.log('response',response);
+                //response = response.data;
+                return response.data;
+            },
+            requestError: function () {
+                $log.log('requestError');
+            },
+            responseError: function (rejection) {
+                $log.log('responseError');
+                switch(rejection.status){
+                    case 401:
+                        break;
+                    case 403:
+                        break;
+                    case 404:
+                         alert('你的页面找不到');
+                        break;
+                    case 500:
+                        break;
+                    return rejection;
+                }
+            }
+        }
+    });
+
+    angular.module('zfMod').config(function ($httpProvider) {
+        $httpProvider.interceptors.push('bookInterceptor');
+    });
+</script>
+</html>
