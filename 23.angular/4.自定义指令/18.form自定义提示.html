@@ -8,6 +8,10 @@
 <body ng-controller="formCtrl">
 <div class="container">
     <form name="userForm" novalidate="novalidate">
+        <div class="form-group"  ng-class="{'has-success':userForm.username.$valid&&userForm.username.$dirty,'has-error':userForm.username.$invalid&&userForm.username.$dirty}">
+            <label for="username">用户名</label>
+            <input zf-errors type="text" ng-maxlength="12" id="username" class="form-control" ng-model="username" name="username" ng-required="true">
+        </div>
         <div class="form-group"  ng-class="{'has-success':userForm.email.$valid&&userForm.email.$dirty,'has-error':userForm.email.$invalid&&userForm.email.$dirty}">
             <label for="email">邮箱</label>
             <input zf-errors type="email" ng-minlength="3" id="email" class="form-control" ng-model="email" name="email" ng-required="true">
@@ -28,22 +32,31 @@
 
             }).directive('zfErrors',function($compile){
                return {
+                   scope:true,
                    require:'ngModel',
                    link:function(scope,element,attrs,ngModelCtrl){
                      //console.log(ngModelCtrl);
-                     var subScope = scope.$new(true);//独立的scope
-                     subScope.hasErrors = function(){
+                     //var subScope = scope.$new(true);//独立的scope
+                       scope.hasErrors = function(){
                            return ngModelCtrl.$invalid;
                      }
-                     subScope.errors = function(){
+                       scope.errors = function(){
                          return ngModelCtrl.$error;
                      }
 
-                     var tmpl = '<p class="help-block" ng-show="hasErrors()" ng-repeat="(key,value) in errors()">{{key}}</p>'
-                     var message = $compile(tmpl)(subScope);
+                     var tmpl = '<p class="help-block" ng-show="hasErrors()" ng-repeat="(key,value) in errors()">{{key|errors}}</p>'
+                     var message = $compile(tmpl)(scope);
                      element.after(message);
                    }
                }
-            });
+            }).filter('errors',function(){
+                return function(input){
+                    var messages = {
+                        'require':'必填',
+                        'email':'必须是邮箱'
+                    }
+                    return messages[input];
+                }
+    });
 </script>
 </html>
