@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap.css">
+</head>
+<body ng-controller="formCtrl">
+<div class="container">
+    <form name="userForm" novalidate="novalidate">
+        <div class="form-group"  ng-class="{'has-success':userForm.email.$valid&&userForm.email.$dirty,'has-error':userForm.email.$invalid&&userForm.email.$dirty}">
+            <label for="email">邮箱</label>
+            <input zf-errors type="email" ng-minlength="3" id="email" class="form-control" ng-model="email" name="email" ng-required="true">
+        </div>
+        <div class="form-group">
+            <input type="button" class="btn btn-default" value="提交">
+        </div>
+    </form>
+</div>
+<pre>
+    {{userForm | json}}
+</pre>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod', [])
+            .controller('formCtrl',function(){
+
+            }).directive('zfErrors',function($compile){
+               return {
+                   require:'ngModel',
+                   link:function(scope,element,attrs,ngModelCtrl){
+                     //console.log(ngModelCtrl);
+                     var subScope = scope.$new(true);//独立的scope
+                     subScope.hasErrors = function(){
+                           return ngModelCtrl.$invalid;
+                     }
+                     subScope.errors = function(){
+                         return ngModelCtrl.$error;
+                     }
+
+                     var tmpl = '<p class="help-block" ng-show="hasErrors()" ng-repeat="(key,value) in errors()">{{key}}</p>'
+                     var message = $compile(tmpl)(subScope);
+                     element.after(message);
+                   }
+               }
+            });
+</script>
+</html>

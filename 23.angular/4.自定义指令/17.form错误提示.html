@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap.css">
+</head>
+<body ng-controller="formCtrl">
+<div class="container">
+    <form name="userForm" novalidate="novalidate">
+        <div class="form-group"  ng-class="{'has-success':userForm.email.$valid&&userForm.email.$dirty,'has-error':userForm.email.$invalid&&userForm.email.$dirty}">
+            <label for="email">邮箱</label>
+            <input type="email" ng-minlength="3" id="email" class="form-control" ng-model="email" name="email" ng-required="true">
+            <p class="help-block" ng-show="userForm.email.$error.required&&userForm.email.$dirty">此字段必输</p>
+            <p class="help-block" ng-show="userForm.email.$error.email&&userForm.email.$dirty">请输入正确的邮箱格式</p>
+            <p class="help-block" ng-show="userForm.email.$error.minlength&&userForm.email.$dirty">不能少于3位长度</p>
+        </div>
+        <div class="form-group">
+            <input type="button" class="btn btn-default" value="提交">
+        </div>
+    </form>
+</div>
+<pre>
+    {{userForm | json}}
+</pre>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod', [])
+            .controller('formCtrl',function(){
+
+            });
+</script>
+</html>
