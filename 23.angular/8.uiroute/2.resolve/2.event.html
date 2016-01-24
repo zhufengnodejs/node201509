@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfMod">
+<head>
+    <meta charset="UTF-8">
+    <title>route</title>
+</head>
+<body ng-controller="zfCtrl">
+<a ui-sref="index">index</a>
+<a ui-sref="user">user</a>
+<div ui-view></div>
+<button ng-click="go('index')">切换到主页状态</button>
+<button ng-click="go('user')">切换到用户状态</button>
+</body>
+<script src="../../angular.js"></script>
+<script src="../angular-ui-router.js"></script>
+
+<script>
+    angular.module('zfMod', ['ui.router']);
+    angular.module('zfMod').config(function($stateProvider,$urlRouterProvider){
+        //当此URL找不到任何状态的时候重向到/index
+        $urlRouterProvider.otherwise('/index');
+        $stateProvider.state('index',{
+            url:'/index',
+            template:'index template'
+        }).state('login',{
+            url:'/login',
+            template:'login'
+        }).state('user',{
+            url:'/user',
+            need_login:true,
+            resolve:{
+                books:function($q){
+                    var defer = $q.defer();
+                    setTimeout(function(){
+                        defer.resolve([{"name":"node.js"},{"name":"javascript"}]);
+                    },5000);
+                    return defer.promise;
+                }
+            },
+            controller:function($scope,$http,$q,books){
+                $scope.books = books;
+            },
+            template:'{{me}}<ul><li ng-repeat="book in books">{{book.name}}</li></ul>'
+        })
+    });
+    angular.module('zfMod').controller('zfCtrl',function($rootScope,$scope,$state){
+        $scope.go = function(sta){
+            $state.go(sta);
+        }
+        $rootScope.me = 'zfpx';
+    });
+    angular.module('zfMod').run(function($rootScope,$state){
+        $rootScope.$on('$stateChangeStart',function(event,toState,toParams,fromState,fromParams){
+            if(toState.need_login){
+                if(!$rootScope.username){
+                    alert('你还没有登陆');
+                    event.preventDefault();
+                    $state.go('login');
+                    return;
+                }
+            }
+        });
+    });
+</script>
+</html>

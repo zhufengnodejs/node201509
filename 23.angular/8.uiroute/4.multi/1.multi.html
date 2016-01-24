@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfMod">
+<head>
+    <meta charset="UTF-8">
+    <title>route</title>
+</head>
+<body ng-controller="zfCtrl">
+<a ui-sref="index">首页</a>
+<a ui-sref="user">用户管理</a>
+<div ui-view></div>
+</body>
+<script src="../../angular.js"></script>
+<script src="../angular-ui-router.js"></script>
+
+<script>
+    angular.module('zfMod', ['ui.router']);
+    angular.module('zfMod').config(function($stateProvider,$urlRouterProvider) {
+        $urlRouterProvider.otherwise('/state1');
+        $stateProvider.state('index', {
+            url: '/index',
+            template:'index'
+        }).state('user', {
+            url: '/user',
+            views:{
+                "":{
+                    templateUrl:'user.html'
+                },
+                "menu@user":{
+                    templateUrl:'menu.html'
+                }
+            }
+        }).state('user.add', {
+            url: '/add',
+            template:'add'
+        }).state('user.list', {
+            url: '/list',
+            template:'list'
+        })
+    });
+    angular.module('zfMod').controller('zfCtrl',function($rootScope,$scope,$state){
+        $scope.gogogo = function(sta){
+            $state.go(sta);
+        }
+    });
+</script>
+</html>

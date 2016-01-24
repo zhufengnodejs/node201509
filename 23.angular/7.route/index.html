@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfMod">
+<head>
+    <meta charset="UTF-8">
+    <title>route</title>
+</head>
+<body>
+<div ng-view></div>
+</body>
+<script src="../angular.js"></script>
+<script src="angular-route.js"></script>
+<script>
+    angular.module('zfMod', ['ngRoute']);
+    angular.module('zfMod').config(function($routeProvider){
+        $routeProvider.when('/',{
+            templateUrl:'root.html'
+        }).when('/index',{
+            templateUrl:'i.html'
+        }).when('/user',{
+            template:'<h1>user</h1>'
+        }).otherwise({
+            redirectTo:'/'
+        });
+    });
+</script>
+</html>
