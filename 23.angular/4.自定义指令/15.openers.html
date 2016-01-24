@@ -41,11 +41,11 @@
                     templateUrl: 'exp.html',
                     require:'^openers',
                     link:function(scope,element,attrs,openersCtrl){
-                        //scope.title = attrs.title;
                         scope.toggle = function(){
                             openersCtrl.open(scope);
                         }
                         openersCtrl.add(scope);
+                        console.log(scope);
                     }
                 }
             }).directive('openers', function () {
