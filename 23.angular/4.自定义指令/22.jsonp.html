@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap.css">
+</head>
+<body ng-controller="formCtrl">
+<div class="container">
+    <form name="userForm" novalidate="novalidate">
+        <div class="form-group"  ng-class="{'has-success':userForm.username.$valid&&userForm.username.$dirty,'has-error':userForm.username.$invalid&&userForm.username.$dirty}">
+            <label for="username">用户名</label>
+            <input zf-unique zf-errors type="text" ng-maxlength="12" id="username" class="form-control" ng-model="username" name="username" ng-required="true">
+        </div>
+        <div class="form-group"  ng-class="{'has-success':userForm.email.$valid&&userForm.email.$dirty,'has-error':userForm.email.$invalid&&userForm.email.$dirty}">
+            <label for="email">邮箱</label>
+            <input zf-errors type="email" ng-minlength="3" id="email" class="form-control" ng-model="email" name="email" ng-required="true">
+        </div>
+        <div class="form-group">
+            <input type="button" class="btn btn-default" value="提交">
+        </div>
+    </form>
+</div>
+<pre>
+    {{userForm | json}}
+</pre>
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfpxMod', [])
+            .controller('formCtrl',function(){
+
+            }).directive('zfErrors',function($compile){
+               return {
+                   scope:true,
+                   require:'ngModel',
+                   link:function(scope,element,attrs,ngModelCtrl){
+                     //console.log(ngModelCtrl);
+                     //var subScope = scope.$new(true);//独立的scope
+                       scope.hasErrors = function(){
+                           return ngModelCtrl.$invalid;
+                     }
+                       scope.errors = function(){
+                         return ngModelCtrl.$error;
+                     }
+
+                     var tmpl = '<p class="help-block" ng-show="hasErrors()" ng-repeat="(key,value) in errors()">{{key|errors}}</p>'
+                     var message = $compile(tmpl)(scope);
+                     element.after(message);
+                   }
+               }
+            }).filter('errors',function(){
+                return function(input){
+                    var messages = {
+                        'require':'必填',
+                        'email':'必须是邮箱',
+                        'unique':'用户名已经被占用'
+                    }
+                    return messages[input];
+                }
+            })
+            .directive('zfUnique',function($http,$timeout){
+             //1.监听数据变化
+             //2.当数据变化时到后台校验
+             //3.用返回值设置字段的有效性
+             return {
+                 require:'ngModel',
+                 link:function(scope,element,attrs,ngModelCtrl){
+                     var timer;
+                     scope.$watch(attrs.ngModel,function(newValue,oldValue){
+                             $http.jsonp('http://localhost:8080/check?callback=JSON_CALLBACK&username='+newValue+'&_='+Math.random())
+                                     .success(function(result){
+                                         console.log(result);
+                                        ngModelCtrl.$setValidity('unique',result.unique);
+                                     }).error(function(status,data){
+                                console.log(status);
+                                 console.log(data);
+                             });
+
+
+                     });
+
+                 }
+             }
+          });
+</script>
+</html>
