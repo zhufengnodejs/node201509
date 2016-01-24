@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfMod">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/bootstrap.css">
+    <title></title>
+</head>
+<body ng-controller="zfCtrl">
+<div  class="container">
+   <table class="table table-bordered">
+       <tr>
+           <td>ID</td>
+           <td>名称</td>
+       </tr>
+       <tr>
+           <td>{{book.id}}</td>
+           <td>{{book.name}}</td>
+       </tr>
+   </table>
+    <table class="table table-bordered">
+        <tr>
+            <td>ID</td>
+            <td>名称</td>
+            <td>操作</td>
+        </tr>
+        <tr ng-repeat="book in books">
+            <td>{{book.id}}</td>
+            <td>{{book.name}}</td>
+            <td>
+                <button class="btn btn-warning" ng-click="update(book)">修改</button>
+                <button class="btn btn-danger" ng-click="delete(book)">删除</button>
+            </td>
+        </tr>
+    </table>
+
+    <table class="table table-bordered">
+        <tr>
+            <td><input type="text" class="form-control" ng-model="book.name"></td>
+            <td><button class="btn btn-default"ng-click="add()">增加</button></td>
+        </tr>
+    </table>
+
+</div>
+</body>
+<script src="/angular.js"></script>
+<script src="/angular-resource.js"></script>
+<script>
+
+    //模块的名字 依赖的其它模块
+    angular.module('zfMod',['ngResource']);
+
+    angular.module('zfMod').service('bookService',function($resource){
+          return $resource('/books/:id',{
+              id:'@id'
+          },{
+              update:{
+                  method:'PUT'
+              }
+          });
+    });
+
+    //控制器的名字 控制器的定义
+    angular.module('zfMod').controller('zfCtrl',function($scope,bookService){
+        $scope.book = {};
+        $scope.books = bookService.query();
+        $scope.add = function(){
+            bookService.save($scope.book).$promise.then(function(result){
+                $scope.books.push(result);
+                $scope.book = {};
+        });
+        }
+        $scope.delete = function(book){
+            bookService.remove(book).$promise.then(function(result){
+              if(result.code == 'success'){
+                  $scope.books = $scope.books.filter(function(curr){
+                      return book.id != curr.id;
+                  })
+              }
+            });
+        }
+    })
+
+
+</script>
+</html>
