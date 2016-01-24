@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfMod">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM</title>
+</head>
+<body ng-controller="zfCtrl">
+{{num}}
+{{100|add:10:5:3}}
+</body>
+<script src="../angular.js"></script>
+<script>
+    angular.module('zfMod', []);
+    angular.module('zfMod').controller('zfCtrl',function($scope,currencyFilter){
+        $scope.num =currencyFilter(888.888);
+
+    });
+    angular.module('zfMod').filter('add',function(){
+      return function(input){
+          var sum =0;
+          for(var i=0;i<arguments.length;i++){
+              sum += arguments[i];
+          }
+          return sum;
+      }
+    });
+
+</script>
+</html>
