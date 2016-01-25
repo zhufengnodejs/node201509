@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+关键字<input id="keyword" class="form-control" type="text"><input type="button" onclick="search()" class="btn btn-default" value="搜索">
+<ul class="list-group">
+
+</ul>
+</body>
+<script>
+    function show(result){
+       var words = result.s;
+       var ul =  document.getElementsByClassName('list-group')[0];
+        ul.innerHTML = '';
+        ul.addEventListener('click',function(event){
+            var val = event.target.innerHTML;
+            window.location = 'https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd='+val+'&oq=abcdefg&rsv_pq=dadb1ccd00070a9d&rsv_t=dda11zOJ4BeWArENsVebFpQCXADHsd%2BUMeLswM1IFnxbn1H0RtHdIPhHDOQ&rsv_enter=1&inputT=4007&rsv_sug3=23&rsv_sug1=21&rsv_sug2=0&rsv_sug7=100&rsv_sug4=4007';
+        });
+        ul.style.border = 'solid 1px red';
+        words.forEach(function(word){
+          var li = document.createElement('li');
+            li.className = 'list-item';
+          li.innerHTML = word;
+           ul.appendChild(li);
+       });
+    }
+
+    //https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=xxxxxxxxxxx&oq=abcdefg&rsv_pq=dadb1ccd00070a9d&rsv_t=dda11zOJ4BeWArENsVebFpQCXADHsd%2BUMeLswM1IFnxbn1H0RtHdIPhHDOQ&rsv_enter=1&inputT=4007&rsv_sug3=23&rsv_sug1=21&rsv_sug2=0&rsv_sug7=100&rsv_sug4=4007
+    function search(){
+        var keyword = document.getElementById('keyword').value;
+        //var url = 'http://suggestion.baidu.com/su?wd='+keyword+'&cb=show';
+        var url = 'http://localhost:8080/jsonp?wd='+keyword+'&cb=show';
+        var script = document.createElement('script');
+        script.src = url;
+        document.body.appendChild(script);
+
+    }
+</script>
+
+</html>

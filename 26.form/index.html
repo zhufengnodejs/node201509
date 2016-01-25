@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="jquery.js"></script>
+</head>
+<body>
+<form action="" onsubmit="return onSubmit()">
+    <div class="form-group">
+        <label >用户名</label>
+        <input type="text" class="form-control" name="name">
+    </div>
+    <div class="form-group">
+        <label >年龄</label>
+        <input type="text" class="form-control" name="age">
+    </div>
+    <div class="form-group">
+        <label >性别</label>
+        <div class="radio-inline">
+            <label >
+                <input type="radio" name="gender" value="男" checked>男
+            </label>
+        </div>
+        <div class="radio-inline">
+            <label>
+                <input type="radio" name="gender" value="女">女
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label >爱好</label>
+        <div class="checkbox-inline">
+            <label>
+                <input type="checkbox" name="hobby" value="抽烟">抽烟
+            </label>
+        </div>
+        <div class="checkbox-inline">
+            <label>
+                <input type="checkbox" name="hobby" value="喝酒">喝酒
+            </label>
+        </div>
+        <div class="checkbox-inline">
+            <label>
+                <input type="checkbox" name="hobby" value="烫头">烫头
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label >学历</label>
+        <select name="degree" >
+                <option value="幼儿园">幼儿园</option>
+                <option value="小班">小班</option>
+                <option value="大班">大班</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-default" value="提交">
+    </div>
+</form>
+<script>
+    function serialize(form){
+      var elements = Array.prototype.slice.call(form.elements);
+        var data = [];
+        elements.forEach(function(element){
+            var type = element.type;
+            switch(type){
+                case 'submit':
+                case 'cancel':
+                case  'reset':
+                case 'button':
+                case 'file':
+                case "undefined":
+                    break;
+                case 'select-one':
+                case 'select-multiple':
+                    if(element.name){
+                        var options = element.options;
+                        for(var i=0;i<options.length;i++){
+                            if(options[i].selected)
+                               data.push(element.name +'='+options[i].value);
+                        }
+                    }
+                    break;
+                case 'radio':
+                case 'checkbox':
+                    if(!element.checked)
+                      break;
+                default:
+                    if(element.name)
+                        data.push(element.name +'='+element.value);
+            }
+        });
+        return data.join('&');
+
+
+    }
+    function onSubmit(){
+        $.get('/ajax',serialize($('form')[0]),function(data){
+         console.log(data);
+        });
+        return false;
+    }
+</script>
+</body>
+</html>

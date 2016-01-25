@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script src="index.js"></script>
+<script>
+    //创建ajax对象
+    var x = XHR();
+    //注册状态变化的回调函数
+
+    //初始化xhr对象
+    x.open('POST','/books',true);
+    //application/x-www-form-urlencoded
+    //x.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    x.setRequestHeader('Content-Type','application/json');
+    //x.overrideMimeType('application/json');
+    x.responseType = 'document';
+    x.onreadystatechange = function(){
+        //alert(x.readyState);
+        //console.log(x.status,x.statusText,x.responseText);
+        //console.log(x.getAllResponseHeaders());
+        //console.log(x.getResponseHeader('Connection'));
+        if(x.readyState == 4 && x.status == 200)
+          console.log(  x.response.getElementsByTagName('div')[0]);
+    }
+    //发送请求
+    //x.send("name=zfpx&age=6");
+    x.send('{"name":"zfpx","age":6}');
+</script>
+</html>
