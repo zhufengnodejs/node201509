@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap.css">
+</head>
+<body>
+<div class="container">
+  <button onclick="show()">获取</button>
+    <div id="content"></div>
+</div>
+</body>
+<script src="../angular.js"></script>
+<script>
+
+    angular.module('zfpxMod',[]);
+    angular.module('zfpxMod').provider('zfHello',function(){
+        this.$get = function(){
+            return "hello world";
+        }
+    });
+
+    function show (){
+        var injector1 = angular.injector(['ng','zfpxMod']);
+        var injector2 = angular.injector(['ng','zfpxMod']);
+        console.log(injector1===injector2);
+        document.querySelector('#content').innerHTML =
+                injector2.get('zfHello');
+    }
+</script>
+</html>

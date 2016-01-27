@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="zfpxMod">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap.css">
+</head>
+<body>
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li><a ui-sref="home">首页</a></li>
+        <li><a ui-sref="user">用户管理</a></li>
+        <li><a ui-sref="profile">个人设置</a></li>
+    </ul>
+    <div ui-view></div>
+</div>
+</body>
+<script src="../angular.js"></script>
+<script src="../angular-ui-router.js"></script>
+<script>
+    angular.module('zfpxMod',['ui.router']);
+    angular.module('zfpxMod').controller('basicCtrl',function($scope){
+        $scope.user = {
+            username:'珠峰',
+            home:'昌平'
+        }
+    });
+    angular.module('zfpxMod').config(function($stateProvider){
+        $stateProvider.state('home',{
+            url:'/home',
+            template:'{{title}}',
+            controller:function($scope){
+                $scope.title = '首页';
+            }
+        }).state('user',{
+            url:'/user',
+            templateUrl:'user.html',
+            controller:function($scope){
+                $scope.title = '首页';
+            }
+        }).state('user.list',{
+            url:'/list',
+            templateUrl:'user.list.html',
+            resolve:{
+                users:function($http){
+                    return $http.get('user.json').then(function(result){
+                        return result.data;
+                    })
+                }
+            },
+            controller:function($scope,users){
+                $scope.users = users;
+            }
+        }).state('user.add',{
+            url:'/profile',
+            templateUrl:'user.add.html',
+            controller:function($scope){
+                $scope.title = '增加用户';
+            }
+        }).state('user.view',{
+            url:'/view/:id',
+            templateUrl:'user.view.html',
+            controller:function($scope,users,$stateParams){
+                var id = $stateParams.id;
+                $scope.user = users.filter(function(user){
+                    return user.id = id;
+                })[0];
+            },
+            resolve:{
+                users:function($http){
+                    return $http.get('user.json').then(function(result){
+                        return result.data;
+                    })
+                }
+            },
+        }).state('profile',{
+            url:'/profile',
+            controller:function($scope){
+                $scope.title = '首页';
+            },
+            views:{
+                "":{
+                    templateUrl:'profile.html',
+                },
+                "basic@profile":{
+                    templateUrl:'basic.html',
+                    controller:'basicCtrl'
+                },
+                "education@profile":{
+                    templateUrl:'education.html',
+                }
+            }
+        });
+    });
+</script>
+</html>

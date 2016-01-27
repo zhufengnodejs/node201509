@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap.css">
+</head>
+<body>
+<div class="container">
+  <button onclick="getUsers2()">获取用户</button>
+    <ul id="content"></ul>
+</div>
+</body>
+<script src="../angular.js"></script>
+<script>
+
+    angular.module('zfpxMod',['ui.router']);
+
+
+    function getUsers(){
+        var injector = angular.injector(['ng']);
+        injector.invoke(function($http){
+            $http.get('user.json').then(function(result){
+                document.querySelector('#content').innerHTML = "";
+                result.data.forEach(function(user){
+                    var li = document.createElement('li');
+                    li.innerHTML = user.name;
+                    document.querySelector('#content').appendChild(li);
+                });
+            })
+        });
+    }
+    function getUsers2(){
+        //instantiate
+        var injector = angular.injector(['ng']);
+        console.log(injector.has('$http'));
+        console.log(injector.has('$http2'));
+        injector.get('$http').get('user.json').then(function(result){
+                document.querySelector('#content').innerHTML = "";
+                result.data.forEach(function(user){
+                    var li = document.createElement('li');
+                    li.innerHTML = user.name;
+                    document.querySelector('#content').appendChild(li);
+                });
+            })
+    }
+    function getUsers3(){
+        var injector = angular.injector(['ng']);
+        var log = injector.instantiate(function($http){
+            console.log($http);
+                this.info = function(){console.log('hello ')}
+        })
+        log.info();
+    }
+
+</script>
+</html>
