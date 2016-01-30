@@ -1,0 +1,1 @@
+{"version":3,"sources":["4.arrow.js"],"names":[],"mappings":"AAAA,IAAI,MAAM,QAAQ,IAAR","file":"true","sourcesContent":["let say = name => name;\r\n"]}

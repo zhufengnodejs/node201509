@@ -1,0 +1,1 @@
+let say = name => name;
