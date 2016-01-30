@@ -1,0 +1,15 @@
+{
+  "name": "30.webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "expose-loader": "^0.7.1",
+    "webpack": "^1.12.12"
+  }
+}
