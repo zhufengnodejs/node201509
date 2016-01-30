@@ -80,7 +80,7 @@ gulp.task('extras', () => {
     dot: true
   }).pipe(gulp.dest('dist'));
 });
-
+//清除.tmp 和 dist 目录
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
 gulp.task('serve', ['styles', 'fonts'], () => {
@@ -143,7 +143,7 @@ gulp.task('wiredep', () => {
     }))
     .pipe(gulp.dest('app'));
 });
-
+//编译
 gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
