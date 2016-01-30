@@ -1,23 +1,8 @@
 var gulp = require('gulp');
-var fs = require('fs');
-var Q = require('q');
+var sass = require('gulp-sass');
 
-gulp.task('default',function(){
-   gulp.watch('app/**/*.js',function(event){
-       // event.path event.type
-       console.log(event.path,event.type);
-       switch(event.type){
-           case 'added':
-
-               break;
-           case 'changed':
-
-               break;
-           case 'deleted':
-
-               break;
-           default:
-               break;
-       }
-   })
+gulp.task('sass',function(){
+    return gulp.src('app/sass/*.scss').pipe(sass()).pipe(gulp.dest('dist/css'));
 });
+
+gulp.task('default',['sass']);
