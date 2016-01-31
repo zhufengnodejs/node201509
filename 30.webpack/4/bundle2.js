@@ -5,10 +5,10 @@ webpackJsonp([1],[
 
 	'use strict';
 
-	__webpack_require__(1);
+	__webpack_require__(2);
 	document.write('hello');
-	__webpack_require__(6);
-	__webpack_require__(9);
+	__webpack_require__(7);
+	__webpack_require__(10);
 
 /***/ }
 ]);

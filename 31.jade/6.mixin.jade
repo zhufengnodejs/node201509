@@ -1,0 +1,12 @@
+// jade -P -w 4.var.jade -O var.json
+doctype html
+html
+    head
+        title hello world
+    body
+        mixin say(word)
+            p say#{word}
+        +say('a')
+        +say('b')
+        +say('c')
+

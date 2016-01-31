@@ -1,0 +1,26 @@
+// jade -P -w 4.var.jade -O var.json
+doctype html
+html
+    head
+        title hello world
+    body
+        - var course = {name:'zfpx',age:6}
+        - for(var v in course)
+            p #{v} #{course[v]}
+        - var courses = ['node','javascript'];
+        - each item in courses
+            p=item
+        - var n = 0;
+        ul
+            while n<5
+                p=n++
+        - var n = 7
+        div
+            if n == 5
+                p 5
+            else if n == 6
+                p 6
+            else
+                p 100
+
+

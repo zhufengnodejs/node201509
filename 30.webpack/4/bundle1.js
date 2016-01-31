@@ -5,10 +5,29 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	__webpack_require__(1);
-	document.write('welcome');
-	__webpack_require__(6);
-	__webpack_require__(9);
+	var _person = __webpack_require__(1);
+
+	__webpack_require__(2);
+	document.write('zfpxzfpx');
+	__webpack_require__(7);
+	__webpack_require__(10);
+
+	(0, _person.getName)();
+
+/***/ },
+/* 1 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.getName = getName;
+	var name = exports.name = 'zfpz';
+	function getName() {
+	    console.log(name);
+	}
 
 /***/ }
 ]);

@@ -1,0 +1,24 @@
+//1.不同的层级元素之间通过缩进进行分隔，标签和内容之间要加空格
+//2.编译模板 jade index.jade
+//3.jade -P -w index.jade
+doctype html
+html
+    head
+        title hello world
+        style.
+            body {color:red}
+        script.
+            var name = "zfpx";
+    body
+        h1#myh1.myclass.myclass2(name="myname",age="6") zpfx6
+        #testId.testName
+            a(href="http://www.zhufengpeixun.cn") 链接
+            input(name='name',type='text',value='zfpx')
+        #content(style="border:1px solid red;")
+            | hello
+            input(value='zfpx')
+            <input value='world'>
+            | world
+        #content2.
+            <input value='world'>
+
