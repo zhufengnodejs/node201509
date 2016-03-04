@@ -58,7 +58,7 @@
                      console.log(scope.$eval(attrs['samePassword']));
                      return scope.$eval(attrs['samePassword']);
                  },function(){
-                     ngModel.$setValidity('xxx',ngModel.modelValue == scope.$eval(attrs['samePassword']));
+                     ngModel.$setValidity('xxx',ngModel.$viewValue == scope.$eval(attrs['samePassword']));
                  });
 
 
